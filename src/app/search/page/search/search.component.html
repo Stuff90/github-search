@@ -1,0 +1,27 @@
+<div>
+  <p>
+    search works!
+    <a routerLink="/">Back home</a>
+  </p>
+
+  <button (click)="up()">store</button>
+
+  <input [(ngModel)]="searchTerm" (ngModelChange)="searchValue.next($event)" />
+    <md-card *ngFor="let user of results | async">
+      <md-card-header>
+        <div md-card-avatar class="example-header-image" [style.backgroundImage]="getSanitizeUrl(user.avatar_url)"></div>
+        <md-card-title>{{user.login}}</md-card-title>
+      </md-card-header>
+      <md-card-actions>
+        <button md-raised-button color="primary">Details</button>
+        <a md-raised-button [href]="user.html_url" target="_blank">See on Github
+          <md-icon>launch</md-icon>
+        </a>
+      </md-card-actions>
+    </md-card>
+  <ul>
+    <li *ngFor="let item of pagination | async">
+      <button (click)="page.next(item)">{{item}}</button>
+    </li>
+  </ul>
+</div>
