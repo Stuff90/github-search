@@ -21,7 +21,31 @@ app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'dist')));
 
 // Set our api routes
-app.use('/api', api);
+// app.use('/api', api);
+
+
+app.get('/auth/github',
+passport.authenticate('github', { scope: [ 'user:email' ] }),
+function(req, res){
+  console.log(req, res);
+  // The request will be redirected to GitHub for authentication, so this
+  // function will not be called.
+});
+
+app.get('/auth/github/callback',
+passport.authenticate('github', { failureRedirect: '/login' }),
+function(req, res) {
+  console.log('cb' , req.user.profile);
+  console.log('===================');
+  console.log(req.user.accessToken, req.user.refreshToken);
+  console.log('===================');
+  console.log(Object.keys(res));
+  // res.redirect('/');
+
+  res.json(req.user.profile);
+});
+
+
 
 // Catch all other routes and return the index file
 app.get('*', (req, res) => {
@@ -45,15 +69,25 @@ const server = http.createServer(app);
 server.listen(port, () => console.log(`API running on localhost:${port}`));
 
 
+passport.serializeUser(function(user, done) {
+  done(null, user);
+});
+
+passport.deserializeUser(function(obj, done) {
+  done(null, obj);
+});
+
 
 passport.use(new GitHubStrategy({
   clientID: 'ca0c095c5e5d94e57d6e',
   clientSecret: 'cbbfd8f0b68f14624ce1206ce36df6fdec27ced5',
-  callbackURL: 'http://localhost:3000/login'
+  callbackURL: 'http://localhost:3000/auth/github/callback'
 },
   (accessToken, refreshToken, profile, done) => {
-      User.findOrCreate({ githubId: profile.id }, function (err, user) {
-      return done(err, user);
-      });
+    console.log(accessToken, refreshToken);
+      // User.findOrCreate({ githubId: profile.id }, function (err, user) {
+      // return done(err, user);
+      // });
+    return done(null, {accessToken, refreshToken, profile, done})
   }
 ));
