@@ -1,4 +1,4 @@
-import { Action } from "@ngrx/store";
+import { Action } from '@ngrx/store';
 
 export const UPDATE_SEARCH_TERM = '[Search] Update search term value';
 export const VALIDATE_SEARCH_TERM = '[Search] Validate search term value';
@@ -15,5 +15,4 @@ export class ValidateSearchTermAction implements Action {
 
 export type SearchActions
   = UpdateSearchTermAction
-  | ValidateSearchTermAction
-  ;
+  | ValidateSearchTermAction;

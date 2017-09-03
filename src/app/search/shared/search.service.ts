@@ -1,13 +1,13 @@
-import { Store } from "@ngrx/store";
-import { Injectable } from "@angular/core";
-import { Observable } from "rxjs/Observable";
+import { Store } from '@ngrx/store';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
 
-import { GithubUser } from "./interfaces/github-user.interface";
-import { SearchResults } from "./interfaces/search-results.interface";
+import { GithubUser } from './interfaces/github-user.interface';
+import { SearchResults } from './interfaces/search-results.interface';
 
 @Injectable()
 export class SearchService {
-  search: Observable<SearchResults>
+  search: Observable<SearchResults>;
 
   constructor(
     private store: Store<any>,

@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from "@angular/router";
+import { Router } from '@angular/router';
 import { BehaviorSubject, Subject, Observable } from 'rxjs';
 import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browser';
 import { HttpClient } from '@angular/common/http';
-import { Store } from "@ngrx/store";
-import { UPDATE_SEARCH_TERM } from "../../shared/reducers/search.actions";
-import { SearchService } from "../../shared/search.service";
+import { Store } from '@ngrx/store';
+import { UPDATE_SEARCH_TERM } from '../../shared/reducers/search.actions';
+import { SearchService } from '../../shared/search.service';
 // import { Actions, Effect, toPayload } from '@ngrx/effects';
 
 interface GithubSearchPayload {
-  incomplete_results: boolean,
-  items: any[],
-  total_count: number
+  incomplete_results: boolean;
+  items: any[];
+  total_count: number;
 }
 
 @Component({
@@ -22,7 +22,7 @@ interface GithubSearchPayload {
 export class SearchComponent implements OnInit {
   search: Observable<any>;
 
-  searchTerm: string = 'an';
+  searchTerm = 'an';
   results: Observable<any>;
   pagination: Observable<any>;
   page = new BehaviorSubject<number>(1);
@@ -55,7 +55,7 @@ export class SearchComponent implements OnInit {
       } else {
         return [currentPage - 1, currentPage, currentPage + 1];
       }
-    })
+    });
 
     this.results = this.searchValue
       .debounceTime(300)
