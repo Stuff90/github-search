@@ -1,6 +1,6 @@
 # GithubSearch
 
-## Requirement
+## Requirements
 Nodejs 6.11 or greater.
 NPM 3.10 or greater
 ## Installation
