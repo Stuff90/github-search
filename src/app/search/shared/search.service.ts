@@ -1,28 +1,31 @@
-import { Store } from '@ngrx/store';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import { HttpClient } from '@angular/common/http';
 
 import { GithubUser } from './interfaces/github-user.interface';
 import { SearchResults } from './interfaces/search-results.interface';
+
+interface GithubPayload {
+  items: any[];
+  total_count: number;
+  incomplete_results: boolean;
+}
 
 @Injectable()
 export class SearchService {
   search: Observable<SearchResults>;
 
   constructor(
-    private store: Store<any>,
+    private http: HttpClient,
   ) {
-    this.search = store.select('search');
   }
 
   getSearchResults(): Observable<GithubUser[]> {
     return this.search
       .filter(searchResults => searchResults.valid)
-      // .map(searchResults => `https://api.github.com/search/users?q=${searchResults.term}`)
+      .map(searchResults => `https://api.github.com/search/users?q=${searchResults.term}`)
       // .switchMap(searchUrl => this.page.map(pageNumber => `${searchUrl}&page=${pageNumber}`))
-      .map(searchResults => searchResults.results);
-
-      // .switchMap(searchUrl => this.http.get(searchUrl))
-
+      .switchMap(searchUrl => this.http.get(searchUrl))
+      .map((searchResults: GithubPayload) => searchResults.items);
   }
 }

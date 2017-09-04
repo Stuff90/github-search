@@ -12,6 +12,12 @@ interface GithubSearchPayload {
   total_count: number;
 }
 
+interface MdPaginationEvent {
+  pageIndex: 1;
+  pageSize: 30;
+  length: number;
+}
+
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
@@ -20,57 +26,39 @@ interface GithubSearchPayload {
 export class SearchComponent implements OnInit {
   search: Observable<any>;
 
-  searchTerm = 'an';
   results: Observable<any>;
-  pagination: Observable<any>;
+  searchValue = new  Subject<string>();
   page = new BehaviorSubject<number>(1);
-  searchValue = new BehaviorSubject<string>('');
+  total = new BehaviorSubject<number>(0);
 
-  pouet = this.searchService.getSearchResults();
-
-  // @Effect() navigateToTalks = this.actions.ofType(UPDATE_SEARCH_TERM).
+  pageEvent: EventEmitter<any>;
 
   constructor(
     private router: Router,
     private http: HttpClient,
-    private store: Store<any>,
     private domSanitizer: DomSanitizer,
     private searchService: SearchService,
-    // private actions: Actions
   ) {
-    this.search = store.select('search');
+  }
 
-    // this.search
-    // .filter(searchResults => searchResults.valid)
-    // .do(console.log)
-    // .subscribe()
+  uu(e: MdPaginationEvent) {
+    this.page.next(e.pageIndex + 1);
   }
 
   ngOnInit() {
-    this.pagination = this.page.map(currentPage => {
-      if (currentPage === 1) {
-        return [currentPage, currentPage + 1, currentPage + 2];
-      } else {
-        return [currentPage - 1, currentPage, currentPage + 1];
-      }
-    });
 
     this.results = this.searchValue
       .debounceTime(300)
-      .do(term => this.store.dispatch({ type: UPDATE_SEARCH_TERM, payload: term }))
-      .mapTo([]);
-      // .do(() => this.page.next(1))
-      // .map(term => `https://api.github.com/search/users?q=${term}`)
-      // .switchMap(searchUrl => this.page.map(pageNumber => `${searchUrl}&page=${pageNumber}`))
-      // .switchMap(searchUrl => this.http.get(searchUrl))
-      // .do(console.log)
-      // .map((result: GithubSearchPayload) => result.items)
-      // .do(console.log)
-      // .switchMap(term => this.http.get(`https://api.github.com/search/users?q=${term}`))
-
+      .do(() => this.page.next(1))
+      .map(term => `https://api.github.com/search/users?q=${term}`)
+      .switchMap(searchUrl => this.page.map(pageNumber => `${searchUrl}&page=${pageNumber}`))
+      .switchMap(searchUrl => this.http.get(searchUrl))
+      .do((result: GithubSearchPayload) => this.total.next(result.total_count))
+      .map((result: GithubSearchPayload) => result.items);
   }
 
-  getSanitizeUrl(url) {
+
+  getSanitizeUrl(url: string): SafeStyle {
     return this.domSanitizer.bypassSecurityTrustStyle(`url(${url})`);
   }
 

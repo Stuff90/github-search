@@ -1,13 +1,31 @@
-<div>
+<div class="searchPage">
   <p>
     search works!
     <a routerLink="/">Back home</a>
   </p>
 
-  <button (click)="up()">store</button>
+  <div class="searchPage__form">
+    <md-form-field class="example-full-width">
+      <input
+        [(ngModel)]="searchTerm"
+        (ngModelChange)="searchValue.next($event)"
+        mdInput
+        placeholder="Search...">
+    </md-form-field>
 
-  <input [(ngModel)]="searchTerm" (ngModelChange)="searchValue.next($event)" />
-    <md-card *ngFor="let user of results | async">
+    <md-paginator [length]="total | async"
+      [pageSize]="30"
+      (page)="uu($event)">
+    </md-paginator>
+
+    <!-- <app-search-pagination
+      [currentPage]="page | async"
+      [totalItem]="totalItem"
+      (onPageChange)="this.page.next($event)"
+    ></app-search-pagination> -->
+  </div>
+
+    <md-card *ngFor="let user of results | async" class="searchPage__item">
       <md-card-header>
         <div md-card-avatar class="example-header-image" [style.backgroundImage]="getSanitizeUrl(user.avatar_url)"></div>
         <md-card-title>{{user.login}}</md-card-title>

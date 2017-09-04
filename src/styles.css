@@ -2,5 +2,7 @@
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 
 body {
-  background: url('assets/ricepaper2.png');
+  background: #fcfcfc;
+  max-width: 720px;
+  margin: auto;
 }
