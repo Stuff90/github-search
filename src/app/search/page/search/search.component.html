@@ -1,40 +1,33 @@
 <div class="searchPage">
-  <p>
-    search works!
-    <a routerLink="/">Back home</a>
-  </p>
+  <a md-button routerLink="/">Back home</a>
+
 
   <div class="searchPage__form">
     <md-form-field class="example-full-width">
       <input
         [(ngModel)]="searchTerm"
-        (ngModelChange)="searchValue.next($event)"
+        (ngModelChange)="onSearchTermUpdate($event)"
         mdInput
         placeholder="Search...">
-    </md-form-field>
+      </md-form-field>
 
-    <md-paginator [length]="total | async"
+    <md-paginator
+      [length]="total | async"
       [pageSize]="30"
-      (page)="uu($event)">
+      (page)="updatePagination($event)">
     </md-paginator>
-
-    <!-- <app-search-pagination
-      [currentPage]="page | async"
-      [totalItem]="totalItem"
-      (onPageChange)="this.page.next($event)"
-    ></app-search-pagination> -->
   </div>
 
-    <md-card *ngFor="let user of results | async" class="searchPage__item">
-      <md-card-header>
-        <div md-card-avatar class="example-header-image" [style.backgroundImage]="getSanitizeUrl(user.avatar_url)"></div>
-        <md-card-title>{{user.login}}</md-card-title>
-      </md-card-header>
-      <md-card-actions>
-        <button md-raised-button color="primary">Details</button>
-        <a md-raised-button [href]="user.html_url" target="_blank">See on Github
-          <md-icon>launch</md-icon>
-        </a>
-      </md-card-actions>
-    </md-card>
+  <md-card *ngFor="let user of results | async" class="searchPage__item">
+    <md-card-header>
+      <div md-card-avatar class="example-header-image" [style.backgroundImage]="getSanitizeUrl(user.avatar_url)"></div>
+      <md-card-title>{{user.login}}</md-card-title>
+    </md-card-header>
+    <md-card-actions>
+      <a [routerLink]="'/user/' + user.id" md-raised-button color="primary">Details</a>
+      <a md-raised-button [href]="user.html_url" target="_blank">See on Github
+        <md-icon>launch</md-icon>
+      </a>
+    </md-card-actions>
+  </md-card>
 </div>

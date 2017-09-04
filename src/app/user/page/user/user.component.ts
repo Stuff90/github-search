@@ -1,4 +1,14 @@
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs/Observable';
+import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
+
+import { SearchService } from '../../../search/shared/search.service';
+
+interface UserRouteParam {
+  id: number;
+}
 
 @Component({
   selector: 'app-user',
