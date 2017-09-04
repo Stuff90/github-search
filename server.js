@@ -6,9 +6,6 @@ const path = require('path');
 const http = require('http');
 const bodyParser = require('body-parser');
 
-// Get our API routes
-const api = require('./server/routes/api');
-
 const app = express();
 
 // Parsers for POST data
@@ -19,10 +16,6 @@ app.use(passport.session());
 
 // Point static path to dist
 app.use(express.static(path.join(__dirname, 'dist')));
-
-// Set our api routes
-// app.use('/api', api);
-
 
 app.get('/auth/github',
 passport.authenticate('github', { scope: [ 'user:email' ] }),
