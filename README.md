@@ -11,9 +11,10 @@ npm run demo
 ## Tech environment
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.3.2.
 Used libraries :
-- [Angular Material](https://github.com/cfsghost/passport-github) - GitHub authentication strategy for Passport and Node.js.
-- [Angular Material](https://github.com/angular/material2) - Material Design components for Angular
-- [RxJS](https://github.com/Reactive-Extensions/RxJS) - Reactive libraries for Angular
+- [passport](https://github.com/jaredhanson/passport) - Simple, unobtrusive authentication for Node.js
+- [passport-github2](https://github.com/cfsghost/passport-github) - GitHub authentication strategy for Passport and Node.js.
+- [@angular/material](https://github.com/angular/material2) - Material Design components for Angular
+- [rxjs](https://github.com/Reactive-Extensions/RxJS) - Reactive libraries for Angular
 - [@ngrx/store](https://github.com/ngrx/platform/blob/master/docs/store/README.md) - RxJS powered state management for Angular applications, inspired by Redux  
 - [@ngrx/effects](https://github.com/ngrx/platform/blob/master/docs/effects/README.md) - Side Effect model for @ngrx/store to model event sources as actions.   
 - [@ngrx/store-devtools](https://github.com/ngrx/platform/blob/master/docs/store-devtools/README.md) - Store instrumentation that enables a
