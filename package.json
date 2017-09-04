@@ -5,6 +5,7 @@
   "scripts": {
     "ng": "ng",
     "build": "webpack",
+    "demo": "webpack & node server.js",
     "test": "karma start ./karma.conf.js",
     "lint": "ng lint",
     "e2e": "protractor ./protractor.conf.js",

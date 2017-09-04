@@ -27,22 +27,12 @@ app.use(express.static(path.join(__dirname, 'dist')));
 app.get('/auth/github',
 passport.authenticate('github', { scope: [ 'user:email' ] }),
 function(req, res){
-  console.log(req, res);
-  // The request will be redirected to GitHub for authentication, so this
-  // function will not be called.
 });
 
 app.get('/auth/github/callback',
 passport.authenticate('github', { failureRedirect: '/login' }),
 function(req, res) {
-  console.log('cb' , req.user.profile);
-  console.log('===================');
-  console.log(req.user.accessToken, req.user.refreshToken);
-  console.log('===================');
-  console.log(Object.keys(res));
-  // res.redirect('/');
-
-  res.json(req.user.profile);
+  res.redirect(`/search?userId=${req.user.profile.id}`);
 });
 
 
