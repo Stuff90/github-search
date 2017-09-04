@@ -1,5 +1,8 @@
 # GithubSearch
 
+## Requirement
+Nodejs 6.11 or greater.
+NPM 3.10 or greater
 ## Installation
 ```bash
 git clone https://github.com/Stuff90/github-search.git
