@@ -1,3 +1,16 @@
-<p>
-  user works!
-</p>
+<div class="userPage">
+  <a md-button routerLink="/search">Back to search</a>
+
+  <md-card *ngFor="let userData of user | async" class="userPage__item">
+    <md-card-header>
+      <div md-card-avatar class="example-header-image" [style.backgroundImage]="getSanitizeUrl(userData.avatar_url)"></div>
+      <md-card-title>{{userData.login}}</md-card-title>
+      <md-card-title>{{userData.location}}</md-card-title>
+    </md-card-header>
+    <md-card-actions>
+      <a md-raised-button [href]="userData.html_url" target="_blank">See on Github
+        <md-icon>launch</md-icon>
+      </a>
+    </md-card-actions>
+  </md-card>
+</div>

@@ -16,10 +16,24 @@ interface UserRouteParam {
   styleUrls: ['./user.component.scss']
 })
 export class UserComponent implements OnInit {
+  user: Observable<any>;
 
-  constructor() { }
+  constructor(
+    private store: Store<any>,
+    private route: ActivatedRoute,
+    private domSanitizer: DomSanitizer,
+    private searchService: SearchService
+  ) { }
 
   ngOnInit() {
+    this.user = this.route.params
+    .switchMap((userRouteParam: UserRouteParam) =>
+      this.searchService.getSearchResultsById(userRouteParam.id)
+    );
+  }
+
+  getSanitizeUrl(url: string): SafeStyle {
+    return this.domSanitizer.bypassSecurityTrustStyle(`url(${url})`);
   }
 
 }
