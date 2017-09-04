@@ -1,9 +1,7 @@
 import { NgModule } from '@angular/core';
-import { StoreModule } from "@ngrx/store";
-import { EffectsModule } from "@ngrx/effects";
 import { RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { MdButtonModule } from '@angular/material';
 
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/map';
@@ -12,22 +10,20 @@ import 'rxjs/add/operator/filter';
 
 import { AppComponent } from './app.component';
 import { HomeModule } from './home/home.module';
+import { UserModule } from './user/user.module';
 import { SearchModule } from './search/search.module';
 
-import { appRoutes } from "./app.routing";
-import { counterReducer } from "./shared/reducers/login.reducer";
+import { appRoutes } from './app.routing';
 
 @NgModule({
   declarations: [
     AppComponent,
   ],
   imports: [
+    MdButtonModule,
     RouterModule.forRoot(
       appRoutes, { enableTracing: false }
     ),
-    StoreModule.forRoot({ counter: counterReducer }),
-    StoreDevtoolsModule.instrument({}),
-    EffectsModule.forRoot([]),
     BrowserModule,
 
     HomeModule,

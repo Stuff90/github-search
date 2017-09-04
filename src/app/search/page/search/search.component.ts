@@ -1,12 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject, Subject, Observable } from 'rxjs';
-import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browser';
 import { HttpClient } from '@angular/common/http';
-import { Store } from '@ngrx/store';
-import { UPDATE_SEARCH_TERM } from '../../shared/reducers/search.actions';
+// tslint:disable-next-line:import-blacklist
+import { BehaviorSubject, Subject, Observable } from 'rxjs';
+import { DomSanitizer, SafeResourceUrl, SafeUrl, SafeStyle } from '@angular/platform-browser';
 import { SearchService } from '../../shared/search.service';
-// import { Actions, Effect, toPayload } from '@ngrx/effects';
 
 interface GithubSearchPayload {
   incomplete_results: boolean;

@@ -1,17 +1,14 @@
 import { NgModule } from '@angular/core';
-import { StoreModule } from "@ngrx/store";
 import { FormsModule } from '@angular/forms';
-import { EffectsModule } from "@ngrx/effects";
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { MdCardModule, MdButtonModule, MdIconModule } from '@angular/material';
+import { MdCardModule, MdIconModule, MdInputModule, MdPaginatorModule, MdButtonModule } from '@angular/material';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { searchRoutes } from './search.routing';
-import { SearchService } from "./shared/search.service";
-import { SearchEffects } from "./shared/search.effects";
+import { SearchService } from './shared/search.service';
 import { SearchComponent } from './page/search/search.component';
-import { searchReducer } from "./shared/reducers/search.reducer";
 
 @NgModule({
   imports: [
@@ -19,14 +16,15 @@ import { searchReducer } from "./shared/reducers/search.reducer";
     CommonModule,
     MdCardModule,
     MdIconModule,
+    MdInputModule,
     MdButtonModule,
     HttpClientModule,
+    MdPaginatorModule,
+    BrowserAnimationsModule,
     RouterModule.forChild(searchRoutes),
-    StoreModule.forFeature('search', searchReducer ),
-    EffectsModule.forFeature([SearchEffects]),
   ],
   declarations: [
-    SearchComponent
+    SearchComponent,
   ],
   providers: [
     SearchService,
