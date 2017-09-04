@@ -2,9 +2,9 @@ import { NgModule } from '@angular/core';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { RouterModule } from '@angular/router';
-import { MdButtonModule } from '@angular/material';
 import { BrowserModule } from '@angular/platform-browser';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { MdButtonModule, MdToolbarModule, MdIconModule } from '@angular/material';
 
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/map';
@@ -26,7 +26,9 @@ import { appReducer } from './shared/app.reducer';
   ],
   imports: [
     UserModule,
+    MdIconModule,
     MdButtonModule,
+    MdToolbarModule,
     StoreModule.forRoot({app: appReducer}),
     StoreDevtoolsModule.instrument({}),
     EffectsModule.forRoot([]),

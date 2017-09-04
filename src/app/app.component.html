@@ -1,1 +1,12 @@
-<router-outlet></router-outlet>
+<div class="appPage">
+  <md-toolbar color="primary" *ngFor="let userData of user | async">
+    <span class="appPage__welcome">Welcome {{userData.login}}</span>
+    <div class="appPage__home">
+      <button md-icon-button routerLink="/">
+        <md-icon class="md-24" aria-label="Example icon-button with a heart icon">home</md-icon>
+        Home
+      </button>
+    </div>
+  </md-toolbar>
+  <router-outlet></router-outlet>
+</div>

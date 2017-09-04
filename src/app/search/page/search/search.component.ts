@@ -41,6 +41,8 @@ export class SearchComponent implements OnInit {
   }
 
   ngOnInit() {
+
+
     this.results = this.searchService.getSearchData('results');
     this.total = this.searchService.getSearchData('total');
   }
